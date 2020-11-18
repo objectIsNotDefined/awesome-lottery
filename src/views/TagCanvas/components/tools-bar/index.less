@@ -1,0 +1,100 @@
+.tools-bar-warp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  .tools-bar-box {
+    position: absolute;
+    transition: all .2s;
+    transition-timing-function: ease;
+    top: -60px;
+    height: 60px;
+    left: 0;
+    right: 0;
+    background-color: rgba(175, 164, 156, 25%);
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    padding: 0 20px;
+    .handle-icon {
+      color: #ffffff;
+      font-size: 30px;
+      cursor: pointer;
+      margin-left: 20px;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+  &:hover {
+    .tools-bar-box {
+      top: 0;
+    }
+  }
+}
+
+.user-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  li {
+    border: 1px solid #dcdee2;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 30px;
+    width: 48%;
+    padding: 0 10px;
+    position: relative;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    i {
+      font-size: 20px;
+      color: #ed4014;
+      cursor: pointer;
+      display: none;
+    }
+    &:hover {
+      i {
+        display: block;
+      }
+    }
+  }
+}
+
+.prize-list {
+  list-style: none;
+  li {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f8f9;
+    padding: 0 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    i {
+      font-size: 20px;
+      color: #ed4014;
+      cursor: pointer;
+      display: none;
+    }
+    &:hover {
+      background-color: #f7f8f9;
+      i {
+        display: block;
+      }
+    }
+  }
+}
+
+.empty-tips {
+  padding: 100px 0;
+  text-align: center;
+  color: #c5c8ce;
+  font-size: 13px;
+}

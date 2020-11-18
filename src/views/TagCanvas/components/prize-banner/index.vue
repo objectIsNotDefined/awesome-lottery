@@ -1,24 +1,12 @@
 <template>
   <div class="prize-banner-box">
     <swiper ref="mySwiper" class="swiper" :options="swiperOptions">
-      <swiper-slide>
-        <div class="prize-item">
-          <img src="https://bpy-store.oss-cn-hangzhou.aliyuncs.com/ppc/52/527a3c33a8e97a8b58300ad87b1fdabb/%E3%80%90Web%E8%BD%AE%E6%92%AD%E3%80%91innovate2020.jpg" alt="">          
+      <swiper-slide v-for="prize in prize_config" :key="prize._id">
+        <div class="img-box" v-if="prize.img">
+          <img :src="prize.img" alt="">
         </div>
-      </swiper-slide>
-      <swiper-slide>
-        <div class="prize-item">
-          <img src="https://bpy-store.oss-cn-hangzhou.aliyuncs.com/ppc/77/7776925affe4784c969f85729fb7e4a2/%E3%80%90Web%E8%BD%AE%E6%92%AD%E3%80%91%E8%B4%A8%E9%87%8F%E4%BA%BA%E5%91%98%E5%BF%85%E5%A4%87%E5%AE%9D%E5%85%B8-%E5%8E%82%E6%88%BF%E8%AE%BE%E6%96%BD%E7%AF%87.jpg" alt="">          
-        </div>
-      </swiper-slide>
-      <swiper-slide>
-        <div class="prize-item">
-          <img src="https://bpy-store.oss-cn-hangzhou.aliyuncs.com/ppc/8b/8bcb5e722c43970f6c54e6ba6fd15843/%E3%80%90Web%E8%BD%AE%E6%92%AD%E3%80%91%E6%99%BA%E5%BA%93%E5%AD%A6%E9%99%A2.jpg" alt="">          
-        </div>
-      </swiper-slide>
-      <swiper-slide>
-        <div class="prize-item">
-          <img src="https://img20.360buyimg.com/pop/s1180x940_jfs/t1/145834/13/2495/96928/5f077497E14f8644e/7122189e35b5e240.jpg.webp" alt="">          
+        <div class="name-box" v-else>
+          {{prize.name}}
         </div>
       </swiper-slide>
       <div class="swiper-button-next swiper-button-white" @click="swiperNavigate(1)" slot="button-next"></div>
@@ -29,17 +17,25 @@
 
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapMutations } = createNamespacedHelpers('tagCanvas')
 import 'swiper/swiper-bundle.css'
 export default {
   name: 'PrizeBanner',
   components: { Swiper, SwiperSlide },
   data() {
+    let vm = this
     return {
       swiperOptions: {
         loop: true,
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
+        },
+        on: {
+          slideChangeTransitionEnd: function() {
+            vm.changeCurrentPrizeIndex(vm.prize_config[this.realIndex]._id)
+          }
         }
       }
     }
@@ -47,20 +43,44 @@ export default {
   computed: {
     swiper() {
       return this.$refs.mySwiper.$swiper
-    }
+    },
+    ...mapState({
+      prize_config: state => state.prize_config
+    })
   },
   created() {
 
   },
   mounted() {
-    // this.swiper.slideTo(3, 1000, false)
+    window.document.addEventListener('keydown', this.bindKeyboardEvent)
+  },
+  beforeDestory() {
+    window.document.removeEventListener('keydown', this.bindKeyboardEvent)
   },
   methods: {
+    ...mapMutations(['changeCurrentPrizeIndex', 'setViewStatus']),
     swiperNavigate(type) {
       if (type == 1) {
         this.swiper.slideNext()
       } else {
         this.swiper.slidePrev()
+      }
+    },
+    bindKeyboardEvent(e) {
+      let key_code = e.keyCode
+      switch (key_code) {
+        case 37:
+          this.swiper.slidePrev()
+          break
+        case 39:
+          this.swiper.slideNext()
+          break
+        // 进入抽奖
+        case 13:
+          this.setViewStatus(2)
+          break
+        default:
+          break
       }
     }
   }

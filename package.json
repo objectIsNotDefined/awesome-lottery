@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "radom": "^0.1.1",
+    "random-all": "^1.0.8",
     "swiper": "^6.3.5",
+    "view-design": "^4.4.0",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
     "vue-router": "^3.2.0",
