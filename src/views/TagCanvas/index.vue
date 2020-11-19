@@ -3,8 +3,10 @@
     <ToolsBar></ToolsBar>
     <div class="content-body">
       <p class="lottery-title"><span>幸运大抽奖</span></p>
-      <PrizeBanner v-if="current_view == 1"></PrizeBanner>
-      <LockDraw v-else></LockDraw>
+      <template v-if="pool_users.length && pool_users.length">
+        <PrizeBanner v-if="current_view == 1"></PrizeBanner>
+        <LockDraw v-else></LockDraw>
+      </template>
     </div>
   </div>
 </template>
@@ -28,7 +30,9 @@ export default {
   },
   computed: {
     ...mapState({
-      current_view: state => state.current_view
+      current_view: state => state.current_view,
+      pool_users: state => state.pool,
+      prize_config: state => state.prize_config
     })
   },
   mounted() {

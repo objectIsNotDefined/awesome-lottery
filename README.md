@@ -1,24 +1,5 @@
 # awesome-lottery
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Todo
++ 添加第一个 prize 后，未初始化 current_prize_id
++ toolbar 中删除数据时，各个界面的报错

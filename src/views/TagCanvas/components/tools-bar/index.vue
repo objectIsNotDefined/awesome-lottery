@@ -51,7 +51,7 @@
     <!-- 中奖列表 -->
     <Drawer title="中奖记录" width="400" v-model="show_record_management_box">
       <ul class="prize-records-list">
-        <li v-for="(item, index) in prize_records" :key="`${item.prize_id}-${item.user_id}`">
+        <li v-for="(item, index) in prize_records" :key="index">
           <div>
             <p class="user-name">{{item.user_name}}</p>
             <p class="prize-name">{{item.prize_name}}</p>

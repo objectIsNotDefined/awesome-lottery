@@ -15,7 +15,7 @@
         <span @click="nextPrize">开始下一轮</span>
       </p>
       <ul class="records-list">
-        <li v-for="item in current_prize_records" :key="item.user_id"><span>{{item.user_name}}</span></li>
+        <li v-for="(item, index) in current_prize_records" :key="index"><span>{{item.user_name}}</span></li>
       </ul>
     </div>
   </div>
@@ -38,6 +38,11 @@ export default {
       current_view: state => state.current_view
     }),
     ...mapGetters(['current_prize', 'current_prize_records'])
+  },
+  watch: {
+    pool_users() {
+      TagCanvas.Reload('rootcanvas') // eslint-disable-line
+    }
   },
   created() {
     this.initPageStatus()
