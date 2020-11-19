@@ -1,0 +1,41 @@
+.tagcanvas-lottery-box {
+  background-image: url(/bg.svg);
+  background-repeat: repeat;
+}
+.content-body {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: calc(100vh - 60px);
+  padding: 50px 80px;
+  .lottery-title {
+    display: inline-block;
+    font-size: 40px;
+    color: #ffffff;
+    font-weight: 700;
+    padding-bottom: 10px;
+    position: relative;
+    padding: 0 10px;
+    letter-spacing: 2px;
+    span {
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+    &::after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30px;
+      border: solid 1px #ca0203;
+      background-image: linear-gradient(to left, #ca0203, rgba(0, 0, 0, .97));
+      z-index: 1;
+      transform: skewX(-24deg);
+    }
+  }
+}
+

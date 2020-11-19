@@ -50,7 +50,15 @@
     </Modal>
     <!-- 中奖列表 -->
     <Drawer title="中奖记录" width="400" v-model="show_record_management_box">
-      
+      <ul class="prize-records-list">
+        <li v-for="(item, index) in prize_records" :key="`${item.prize_id}-${item.user_id}`">
+          <div>
+            <p class="user-name">{{item.user_name}}</p>
+            <p class="prize-name">{{item.prize_name}}</p>
+          </div>
+          <Icon type="ios-trash" @click="deletePrizeRecord(index)" />
+        </li>
+      </ul>
     </Drawer>
   </div>
 </template>
@@ -85,7 +93,8 @@ export default {
   computed: {
     ...mapState({
       user_list: state => state.pool,
-      prize_config: state => state.prize_config
+      prize_config: state => state.prize_config,
+      prize_records: state => state.prize_records
     })
   },
   created() {
@@ -98,7 +107,7 @@ export default {
 
   },
   methods: {
-    ...mapMutations([ 'pushUser2Pool', 'deletePoolUser', 'emptyPool', 'createPrize', 'deletePrizeFromConfig' ]),
+    ...mapMutations([ 'pushUser2Pool', 'deletePoolUser', 'emptyPool', 'createPrize', 'deletePrizeFromConfig', 'deletePrizeRecord' ]),
     requestFullScreen() {
       document.documentElement.requestFullscreen()
     },

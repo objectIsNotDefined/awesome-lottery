@@ -12,6 +12,7 @@
       <div class="swiper-button-next swiper-button-white" @click="swiperNavigate(1)" slot="button-next"></div>
       <div class="swiper-button-prev swiper-button-white" @click="swiperNavigate(-1)" slot="button-prev"></div>
     </swiper>
+    <Button type="primary" class="enter-btn" @click="setViewStatus(2)">进入抽奖</Button>
   </div>
 </template>
 
@@ -54,7 +55,7 @@ export default {
   mounted() {
     window.document.addEventListener('keydown', this.bindKeyboardEvent)
   },
-  beforeDestory() {
+  beforeDestroy() {
     window.document.removeEventListener('keydown', this.bindKeyboardEvent)
   },
   methods: {
@@ -76,7 +77,7 @@ export default {
           this.swiper.slideNext()
           break
         // 进入抽奖
-        case 13:
+        case 32:
           this.setViewStatus(2)
           break
         default:

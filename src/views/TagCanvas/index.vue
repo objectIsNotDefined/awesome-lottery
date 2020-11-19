@@ -1,18 +1,23 @@
 <template>
   <div class="tagcanvas-lottery-box">
     <ToolsBar></ToolsBar>
-    <PrizeBanner v-if="current_view == 1"></PrizeBanner>
+    <div class="content-body">
+      <p class="lottery-title"><span>幸运大抽奖</span></p>
+      <PrizeBanner v-if="current_view == 1"></PrizeBanner>
+      <LockDraw v-else></LockDraw>
+    </div>
   </div>
 </template>
 
 <script>
 import PrizeBanner from './components/prize-banner'
 import ToolsBar from './components/tools-bar'
+import LockDraw from './components/luck-draw'
 import { createNamespacedHelpers } from 'vuex'
 const { mapActions, mapState } = createNamespacedHelpers('tagCanvas')
 export default {
   name: 'TagCanvas',
-  components: { PrizeBanner, ToolsBar },
+  components: { PrizeBanner, ToolsBar, LockDraw },
   data() {
     return {
       
