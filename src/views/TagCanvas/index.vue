@@ -2,8 +2,8 @@
   <div class="tagcanvas-lottery-box">
     <ToolsBar></ToolsBar>
     <div class="content-body">
-      <p class="lottery-title"><span>幸运大抽奖</span></p>
-      <template v-if="pool_users.length && pool_users.length">
+      <p class="lottery-title"><span>XXX幸运抽奖</span></p>
+      <template v-if="prize_config.length">
         <PrizeBanner v-if="current_view == 1"></PrizeBanner>
         <LockDraw v-else></LockDraw>
       </template>
@@ -35,12 +35,32 @@ export default {
       prize_config: state => state.prize_config
     })
   },
+  watch: {
+    prize_config: {
+      handler: function() {
+        this.refreashPageStatus()
+      },
+      deep: true
+    }
+  },
   mounted() {
-
+    if (this.prize_config.length == 0) {
+      this.$Notice.warning({
+        title: '提示',
+        desc: '请先添加奖品'
+      })
+    }
+    if (this.pool_users.length == 0) {
+      this.$Notice.warning({
+        title: '提示',
+        desc: '请先添加参与人员'
+      })
+    }
   },
   methods: {
     ...mapActions({
-      initPageData: 'initStatus'
+      initPageData: 'initStatus',
+      refreashPageStatus: 'refreashPageStatus'
     })
   }
 }

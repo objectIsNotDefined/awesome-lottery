@@ -12,7 +12,6 @@
       <div class="swiper-button-next swiper-button-white" @click="swiperNavigate(1)" slot="button-next"></div>
       <div class="swiper-button-prev swiper-button-white" @click="swiperNavigate(-1)" slot="button-prev"></div>
     </swiper>
-    <Button type="primary" class="enter-btn" @click="setViewStatus(2)">进入抽奖</Button>
   </div>
 </template>
 
@@ -35,7 +34,8 @@ export default {
         },
         on: {
           slideChangeTransitionEnd: function() {
-            vm.changeCurrentPrizeIndex(vm.prize_config[this.realIndex]._id)
+            console.log(this.realIndex)
+            vm.changeCurrentPrizeId(vm.prize_config[this.realIndex]._id)
           }
         }
       }
@@ -46,7 +46,8 @@ export default {
       return this.$refs.mySwiper.$swiper
     },
     ...mapState({
-      prize_config: state => state.prize_config
+      prize_config: state => state.prize_config,
+      pool_users: state => state.pool
     })
   },
   created() {
@@ -59,7 +60,7 @@ export default {
     window.document.removeEventListener('keydown', this.bindKeyboardEvent)
   },
   methods: {
-    ...mapMutations(['changeCurrentPrizeIndex', 'setViewStatus']),
+    ...mapMutations(['changeCurrentPrizeId', 'setViewStatus']),
     swiperNavigate(type) {
       if (type == 1) {
         this.swiper.slideNext()
@@ -78,7 +79,11 @@ export default {
           break
         // 进入抽奖
         case 32:
-          this.setViewStatus(2)
+          if (this.pool_users.length) {
+            this.setViewStatus(2)
+          } else {
+            this.$Message.error('请先添加参与人员')
+          }
           break
         default:
           break

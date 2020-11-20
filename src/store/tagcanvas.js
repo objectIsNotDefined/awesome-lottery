@@ -28,7 +28,7 @@ const TagcanvasStore = {
   },
   mutations: {
     // 修改当前抽奖奖品
-    changeCurrentPrizeIndex(state, data) {
+    changeCurrentPrizeId(state, data) {
       state.current_prize_id = data
     },
     // 更新当前页面状态
@@ -109,7 +109,7 @@ const TagcanvasStore = {
     // 抽奖
     getLuckyGuy({state, commit, getters}, data) {
       let count = data || getters.current_prize.count || 1
-      while (count) {
+      while (count && state.pool.length) {
         let luck_index = Math.floor(Math.random() * state.pool.length)
         let luck_guys = state.pool.splice(luck_index, 1)[0]
         commit('createRecordItem', {
@@ -119,6 +119,15 @@ const TagcanvasStore = {
           prize_id: getters.current_prize._id
         })
         count--
+      }
+    },
+    // 配置数据变化后更新页面状态
+    refreashPageStatus({state, commit}) {
+      let current_prize_is_existed = state.prize_config.filter(prize => prize._id === state.current_prize_id).length
+      // 如果当前奖品被删除，则更新页面状态
+      if (!current_prize_is_existed) {
+        commit('changeCurrentPrizeId', state.prize_config.length? state.prize_config[0]._id : '')
+        commit('setViewStatus', 1)
       }
     }
   }

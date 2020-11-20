@@ -40,8 +40,11 @@ export default {
     ...mapGetters(['current_prize', 'current_prize_records'])
   },
   watch: {
-    pool_users() {
-      TagCanvas.Reload('rootcanvas') // eslint-disable-line
+    pool_users: {
+      handler: function() {
+        TagCanvas.Reload('rootcanvas') // eslint-disable-line
+      },
+      deep: true
     }
   },
   created() {
