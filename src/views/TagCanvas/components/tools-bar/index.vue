@@ -5,6 +5,7 @@
       <Icon type="ios-contacts-outline" @click="showUserManagement" class="handle-icon" />
       <Icon type="ios-trophy-outline" @click="showGiftManagement" class="handle-icon" />
       <Icon type="ios-list-box-outline" @click="showRecordManagement" class="handle-icon" />
+      <Icon type="ios-settings-outline" @click="showBasicManagement" class="handle-icon" />
     </div>
     <!-- 人员配置 -->
     <Drawer title="参与人员配置" width="400" v-model="show_user_management_box">
@@ -60,6 +61,18 @@
         </li>
       </ul>
     </Drawer>
+    <!-- 基本配置 -->
+    <Drawer title="基本配置" width="400" v-model="show_basic_management_box">
+      <Form ref="updateBasic" :model="edit_lottery_basic_info" :rules="loteryValidate" :label-width="80">
+        <FormItem prop="name" label="抽奖主题">
+          <Input v-model="edit_lottery_basic_info.title" placeholder="抽奖主题" />
+        </FormItem>
+        <FormItem>
+          <Button type="primary" @click="handleSubmitBasic">保存</Button>
+          <Button @click="handleResetBasic" style="margin-left: 8px">重置</Button>
+        </FormItem>
+      </Form>
+    </Drawer>
   </div>
 </template>
 
@@ -74,11 +87,15 @@ export default {
       show_user_management_box: false,
       show_prize_management_box: false,
       show_record_management_box: false,
+      show_basic_management_box: false,
       show_prize_add_modal: false,
       add_prize_data: {
         name: '',
         img: '',
         count: 1
+      },
+      edit_lottery_basic_info: {
+        title: ''
       },
       prizeValidate: {
         name: [
@@ -87,6 +104,11 @@ export default {
         count: [
           { required: true, type: 'number', message: '奖品数量不能为空', trigger: 'blur' }
         ]
+      },
+      loteryValidate: {
+        title: [
+          { required: true, message: '抽奖主题不能为空', trigger: 'blur' }
+        ]
       }
     }
   },
@@ -94,7 +116,8 @@ export default {
     ...mapState({
       user_list: state => state.pool,
       prize_config: state => state.prize_config,
-      prize_records: state => state.prize_records
+      prize_records: state => state.prize_records,
+      lottery_basic_info: state => state.basic
     })
   },
   created() {
@@ -107,7 +130,7 @@ export default {
 
   },
   methods: {
-    ...mapMutations([ 'pushUser2Pool', 'deletePoolUser', 'emptyPool', 'createPrize', 'deletePrizeFromConfig', 'deletePrizeRecord' ]),
+    ...mapMutations([ 'pushUser2Pool', 'deletePoolUser', 'emptyPool', 'createPrize', 'deletePrizeFromConfig', 'deletePrizeRecord', 'updateBasic' ]),
     requestFullScreen() {
       document.documentElement.requestFullscreen()
     },
@@ -188,6 +211,28 @@ export default {
     },
     showRecordManagement() {
       this.show_record_management_box = true
+    },
+    showBasicManagement() {
+      this.edit_lottery_basic_info = {
+        ...this.lottery_basic_info
+      }
+      this.$refs['addPrizeForm'].resetFields()
+      this.show_basic_management_box = true
+    },
+    handleSubmitBasic() {
+      this.$refs['updateBasic'].validate((valid) => {
+        if (valid) {
+          this.updateBasic({...this.edit_lottery_basic_info})
+          this.show_basic_management_box = false
+        }
+      })
+      
+    },
+    handleResetBasic() {
+      this.edit_lottery_basic_info = {
+        ...this.lottery_basic_info
+      }
+      this.$refs['addPrizeForm'].resetFields()
     }
   }
 }

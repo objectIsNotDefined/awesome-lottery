@@ -7,6 +7,10 @@ const LS_Records_Key = 'TagCanvas_Records'
 const TagcanvasStore = {
   namespaced: true,
   state: () => ({
+    // 抽奖基本配置
+    basic: {
+      title: ''
+    },
     // 备选池
     pool: [],
     // 奖品配置
@@ -81,6 +85,12 @@ const TagcanvasStore = {
     deletePrizeRecord(state, index) {
       state.prize_records.splice(index, 1)
       localStorage.setItem(LS_Records_Key, JSON.stringify(state.prize_records))
+    },
+    updateBasic(state, data) {
+      state.basic = {
+        ...state.basic,
+        ...data
+      }
     }
   },
   actions: {

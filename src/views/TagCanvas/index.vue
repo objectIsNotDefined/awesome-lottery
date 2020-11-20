@@ -2,7 +2,7 @@
   <div class="tagcanvas-lottery-box">
     <ToolsBar></ToolsBar>
     <div class="content-body">
-      <p class="lottery-title"><span>XXX幸运抽奖</span></p>
+      <p class="lottery-title"><span>{{lottery_basic_info.title || '幸运抽奖'}}</span></p>
       <template v-if="prize_config.length">
         <PrizeBanner v-if="current_view == 1"></PrizeBanner>
         <LockDraw v-else></LockDraw>
@@ -32,7 +32,8 @@ export default {
     ...mapState({
       current_view: state => state.current_view,
       pool_users: state => state.pool,
-      prize_config: state => state.prize_config
+      prize_config: state => state.prize_config,
+      lottery_basic_info: state => state.basic
     })
   },
   watch: {
