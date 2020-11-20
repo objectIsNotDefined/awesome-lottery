@@ -1,0 +1,41 @@
+.home-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .nav-item {
+    font-size: 30px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    position: relative;
+    padding: 0 10px;
+    color: rgba(255, 255, 255, .8);
+    margin: 10px;
+    span {
+      position: relative;
+      z-index: 2;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      height: 15px;
+      border: solid 1px #ca0203;
+      background-image: linear-gradient(to left, #ca0203, rgba(0, 0, 0, .97));
+      transform: skewX(-24deg);
+      transition: all .3s;
+    }
+    &:hover {
+      color: #ffffff;
+      &::after {
+        transform: skewX(0);
+        left: -10px;
+        right: -10px;
+        background-image: linear-gradient(to right, #ca0203, #ca0203);
+      }
+    }
+  }
+}
