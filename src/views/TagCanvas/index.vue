@@ -42,6 +42,12 @@ export default {
         this.refreashPageStatus()
       },
       deep: true
+    },
+    'lottery_basic_info.title': {
+      handler: function() {
+        document.title = this.lottery_basic_info.title || 'Awesome Lottery'
+      },
+      immediate: true
     }
   },
   mounted() {
