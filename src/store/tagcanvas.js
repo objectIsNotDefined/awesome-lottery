@@ -3,6 +3,7 @@ import radom from 'radom'
 const LS_PrizeConfig_Key = 'TagCanvas_PrizeConfig'
 const LS_Pool_Key = 'TagCanvas_Pool'
 const LS_Records_Key = 'TagCanvas_Records'
+const LS_Basic_Key = 'TagCanvas_Basic'
 
 const TagcanvasStore = {
   namespaced: true,
@@ -91,6 +92,7 @@ const TagcanvasStore = {
         ...state.basic,
         ...data
       }
+      localStorage.setItem(LS_Basic_Key, JSON.stringify(state.basic))
     }
   },
   actions: {
@@ -100,6 +102,7 @@ const TagcanvasStore = {
       let pool_cache = localStorage.getItem(LS_Pool_Key)
       let prizeConfig_cache = localStorage.getItem(LS_PrizeConfig_Key)
       let records_cache = localStorage.getItem(LS_Records_Key)
+      let basic_cache = localStorage.getItem(LS_Basic_Key)
       try {
         if (pool_cache) {
           pool_cache = JSON.parse(pool_cache)
@@ -112,6 +115,10 @@ const TagcanvasStore = {
         if (records_cache) {
           records_cache = JSON.parse(records_cache)
           state.prize_records = records_cache
+        }
+        if (basic_cache) {
+          basic_cache = JSON.parse(basic_cache)
+          state.basic = basic_cache
         }
       } catch (e) {console.log(e)}
       

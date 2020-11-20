@@ -1,6 +1,6 @@
 <template>
   <div class="home-box">
-    <div class="nav-item" v-for="item in nav_list" :key="item.url"><span>{{item.title}}</span></div>
+    <div class="nav-item" @click="navigatorAction(item)" v-for="item in nav_list" :key="item.url"><span>{{item.title}}</span></div>
   </div>
 </template>
 
@@ -18,7 +18,9 @@ export default {
     }
   },
   methods: {
-
+    navigatorAction(nav) {
+      this.$router.push(nav.url)
+    }
   }
 }
 </script>
