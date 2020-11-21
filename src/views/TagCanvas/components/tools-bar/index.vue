@@ -33,7 +33,7 @@
     <Modal
       v-model="show_prize_add_modal"
       title="添加奖品">
-      <Form ref="addPrizeForm" :model="add_prize_data" :rules="prizeValidate" :label-width="80">
+      <Form ref="addPrizeForm" :model="add_prize_data" :rules="prizeValidate" :label-width="80" @submit.native.prevent>
         <FormItem prop="name" label="奖品名称">
           <Input v-model="add_prize_data.name" placeholder="请输入奖品名称" />
         </FormItem>
@@ -63,7 +63,7 @@
     </Drawer>
     <!-- 基本配置 -->
     <Drawer title="基本配置" width="400" v-model="show_basic_management_box">
-      <Form ref="updateBasic" :model="edit_lottery_basic_info" :rules="loteryValidate" :label-width="80">
+      <Form ref="updateBasic" :model="edit_lottery_basic_info" :rules="loteryValidate" :label-width="80" @submit.native.prevent>
         <FormItem prop="name" label="抽奖主题">
           <Input v-model="edit_lottery_basic_info.title" placeholder="抽奖主题" />
         </FormItem>
