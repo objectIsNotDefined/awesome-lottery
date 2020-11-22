@@ -1,5 +1,6 @@
 # awesome-lottery
 
+[demo](https://objectisnotdefined.github.io/demo/awesome-lottery)
+
 ## Todo
-+ toolbar 中删除数据时，各个界面的报错
-+ 抽奖基本配置
++ 抽奖界面回到banner页后的index初始化问题待解决

@@ -27,6 +27,15 @@ const TagcanvasStore = {
     current_prize(state) {
       return state.prize_config.filter(prize => prize._id === state.current_prize_id)[0]
     },
+    current_prize_index(state) {
+      let current_index = 0
+      state.prize_config.forEach((prize, index) => {
+        if (prize._id === state.current_prize_id) {
+          current_index = index
+        }
+      })
+      return current_index
+    },
     current_prize_records(state) {
       return state.prize_records.filter(item => item.prize_id === state.current_prize_id)
     }

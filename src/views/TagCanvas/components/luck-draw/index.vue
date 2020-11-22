@@ -125,6 +125,8 @@ export default {
         case 78:
           this.current_view == 4 && this.nextPrize()
           break
+        case 66:
+          this.current_view == 2 && this.nextPrize()
         default:
           break
       }

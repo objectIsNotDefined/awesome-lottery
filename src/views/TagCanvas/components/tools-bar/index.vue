@@ -1,6 +1,6 @@
 <template>
   <div class="tools-bar-warp">
-    <div class="tools-bar-box">
+    <div class="tools-bar-box" :class="{'auto-hiding': user_list.length && prize_config.length}">
       <Icon type="ios-expand" @click="requestFullScreen" class="handle-icon" />
       <Icon type="ios-contacts-outline" @click="showUserManagement" class="handle-icon" />
       <Icon type="ios-trophy-outline" @click="showGiftManagement" class="handle-icon" />

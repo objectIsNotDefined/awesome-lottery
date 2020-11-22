@@ -18,7 +18,7 @@
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapMutations } = createNamespacedHelpers('tagCanvas')
+const { mapState, mapMutations, mapGetters } = createNamespacedHelpers('tagCanvas')
 import 'swiper/swiper-bundle.css'
 export default {
   name: 'PrizeBanner',
@@ -34,7 +34,6 @@ export default {
         },
         on: {
           slideChangeTransitionEnd: function() {
-            console.log(this.realIndex)
             vm.changeCurrentPrizeId(vm.prize_config[this.realIndex]._id)
           }
         }
@@ -45,6 +44,7 @@ export default {
     swiper() {
       return this.$refs.mySwiper.$swiper
     },
+    ...mapGetters(['current_prize_index']),
     ...mapState({
       prize_config: state => state.prize_config,
       pool_users: state => state.pool
