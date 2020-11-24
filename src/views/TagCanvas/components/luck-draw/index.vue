@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     ...mapMutations(['setViewStatus', 'createRecordItem']),
-    ...mapActions(['getLuckyGuy']),
+    ...mapActions(['getLuckyGuy', 'toNextPrize']),
     initPageStatus() {
       if (this.current_prize_records.length) {
         this.setViewStatus(4)
@@ -109,6 +109,10 @@ export default {
     },
     // 下一轮
     nextPrize() {
+      this.toNextPrize()
+      this.setViewStatus(1)
+    },
+    back2Banner() {
       this.setViewStatus(1)
     },
     bindKeyboardEvent(e) {
@@ -126,7 +130,7 @@ export default {
           this.current_view == 4 && this.nextPrize()
           break
         case 66:
-          this.current_view == 2 && this.nextPrize()
+          this.current_view == 2 && this.back2Banner()
           break
         default:
           break

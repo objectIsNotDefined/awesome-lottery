@@ -1,6 +1,6 @@
 <template>
   <div class="prize-banner-box">
-    <swiper ref="mySwiper" class="swiper" :options="swiperOptions">
+    <swiper ref="mySwiper" v-if="is_show_banner" class="swiper" :options="swiper_options">
       <swiper-slide v-for="prize in prize_config" :key="prize._id">
         <div class="img-box" v-if="prize.img">
           <img :src="prize.img" alt="">
@@ -24,20 +24,9 @@ export default {
   name: 'PrizeBanner',
   components: { Swiper, SwiperSlide },
   data() {
-    let vm = this
     return {
-      swiperOptions: {
-        loop: true,
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        },
-        on: {
-          slideChangeTransitionEnd: function() {
-            vm.changeCurrentPrizeId(vm.prize_config[this.realIndex]._id)
-          }
-        }
-      }
+      is_show_banner: false,
+      swiper_options: {}
     }
   },
   computed: {
@@ -55,12 +44,31 @@ export default {
   },
   mounted() {
     window.document.addEventListener('keydown', this.bindKeyboardEvent)
+    // mounted中初始化swiper -> data初始化先于cumputed，导致无法获取当前slideIndex
+    this.initSwiperOptions()
   },
   beforeDestroy() {
     window.document.removeEventListener('keydown', this.bindKeyboardEvent)
   },
   methods: {
     ...mapMutations(['changeCurrentPrizeId', 'setViewStatus']),
+    initSwiperOptions() {
+      let vm = this
+      this.swiper_options = {
+        loop: true,
+        initialSlide: this.current_prize_index,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        on: {
+          slideChangeTransitionEnd: function() {
+            vm.changeCurrentPrizeId(vm.prize_config[this.realIndex]._id)
+          }
+        }
+      }
+      this.is_show_banner = true
+    },
     swiperNavigate(type) {
       if (type == 1) {
         this.swiper.slideNext()

@@ -155,6 +155,14 @@ const TagcanvasStore = {
         commit('changeCurrentPrizeId', state.prize_config.length? state.prize_config[0]._id : '')
         commit('setViewStatus', 1)
       }
+    },
+    // 下一个奖品
+    toNextPrize({state, commit, getters}) {
+      let current_prize_index = getters.current_prize_index
+      if (current_prize_index + 1 < state.prize_config.length) {
+        let next_prize_id = state.prize_config[current_prize_index + 1]._id
+        commit('changeCurrentPrizeId', next_prize_id)
+      }
     }
   }
 }
