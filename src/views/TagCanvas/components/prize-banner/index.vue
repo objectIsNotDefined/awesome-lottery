@@ -19,7 +19,7 @@
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapMutations, mapGetters } = createNamespacedHelpers('tagCanvas')
-import 'swiper/swiper-bundle.css'
+// import 'swiper/swiper-bundle.css'
 export default {
   name: 'PrizeBanner',
   components: { Swiper, SwiperSlide },
